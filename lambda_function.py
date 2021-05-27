@@ -17,7 +17,7 @@ today = datetime.today()
 yesterday_date_str = str((today - timedelta(days=1)).date())
 
 
-def respond(was_error, out_put_data=None):
+def respond(wasError, outputData=None):
     return {
         'statusCode': '400' if wasError else '200',
         'body': json.dumps("There was an Error") if wasError else json.dumps(outputData),
@@ -96,6 +96,7 @@ def lambda_handler(event, context):
             "The_average_recovered_cases_per_100_square_KM_per_country": Average_recovered_cases_per_100_square_KM_per_country(data_dict),
             "The_top_10_countries_recovered_cases_in_the_last_week":The_top_10_countries_recovered_cases_in_the_last_week(data_dict)}
 
-        return respond(was_error=False, out_put_data=result_dict)
-    except:
-        return respond(was_error=True)
+        return respond(wasError=False, outputData=result_dict)
+    except Exception as e:
+        print(e)
+        return respond(wasError=True)
